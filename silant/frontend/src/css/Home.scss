@@ -1,0 +1,298 @@
+@use '../variables.scss' as *;
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.main-section-search-results {
+    flex-grow: 1; 
+}
+.video-loading-homeresults {
+    width: 50%;
+    height: 15vh;
+    margin-left: 25vw;
+    margin-top: 10vh;
+}
+.text-name-role {
+    color:$main-color;
+    margin-left: 5%;
+    font-family: $bold-font;
+    font-size: 4vh;
+    margin-bottom: .5%;
+    margin-top: 5vh;
+}
+.title-section-results {
+    color:$main-color;
+    font-family: $main-font;
+    font-size: 3vh;
+    margin-left: 5%;
+    margin-top: 1vh;
+    margin-bottom: 0;
+} 
+.title-table-results {
+    color:$main-color;
+    font-family: $main-font;
+    font-size: 3vh;
+    margin-left: 5%;
+    margin-top: 3%;
+    margin-bottom: 0;
+}
+
+.container-cars {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(3, 1fr);
+    width: 0%;
+    opacity: 0;
+    margin-left: 4%;
+    transition: .3s ease-in-out;
+}
+.container-cars.active {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(3, 1fr);
+    width: 60%;
+    opacity: 1;
+    margin-left: 4%;
+    transition: .3s ease-in-out;
+}
+.car-name {
+    width: 50%;
+    cursor:pointer;
+    color:$main-color;
+    font-family: $main-font;
+    border-bottom: .15vw solid $main-color;
+    font-size: 1.5vw;
+    margin-left: 3%;
+    margin-top: 0%;
+    margin-bottom: 1%;
+    text-align: center;
+    transition: .2s ease-in;
+}
+.car-name:hover {
+    width:50%;
+    color:$main-color;
+    font-family: $main-font;
+    border-bottom: 3px solid $main-color;
+    font-size: 3vh;
+    margin-left: 4.5%;
+    margin-top: 0%;
+    margin-bottom: 1%;
+    text-align: center;
+    transition: .2s ease-in;
+}
+
+.container-buttons {
+    flex-direction: row;
+}
+.button-information {
+    width: 12%;
+    height: 4vh;
+    border: none;
+    color: $main-color;
+    border-bottom: 2px solid $main-color;
+    margin-top: 3vh;
+    font-size: 2vh;
+    margin-left: 5%;
+    transition: .2s ease-in;
+}
+.button-information.active {
+    width: 14%;
+    height: 4vh;
+    border: none;
+    border-bottom: 3px solid $main-color;
+    margin-top: 2.5vh;
+    font-size: 2vh;
+    margin-left: 4%;
+    transition: .2s ease-in;
+}
+.button-information-to{
+    width: 12%;
+    height: 4vh;
+    border: none;
+    color: $main-color;
+    border-bottom: 2px solid $main-color;
+    margin-top: 3vh;
+    font-size: 2vh;
+    margin-left: 5%;
+    transition: .2s ease-in;
+}
+.button-information-to.active {
+    width: 14%;
+    height: 4vh;
+    border: none;
+    border-bottom: 3px solid $main-color;
+    margin-top: 2.5vh;
+    font-size: 2vh;
+    margin-left: 4%;
+    transition: .2s ease-in;
+}
+.button-information-rec{
+    width: 12%;
+    height: 4vh;
+    border: none;
+    color: $main-color;
+    border-bottom: 2px solid $main-color;
+    margin-top: 3vh;
+    font-size: 2vh;
+    margin-left: 5%;
+    transition: .2s ease-in;
+}
+.button-information-rec.active {
+    width: 14%;
+    height: 4vh;
+    border: none;
+    border-bottom: 3px solid $main-color;
+    margin-top: 2.5vh;
+    font-size: 2vh;
+    margin-left: 4%;
+    transition: .2s ease-in;
+}
+.select {
+    width: 14%;
+    height: 4vh;
+    font-size: 2vh;
+    font-family: $main-font;
+    margin-left: 4%;
+    border: none;
+    color: $main-color;
+    border-bottom: 3px solid $main-color;
+    background-color: transparent;
+}
+.select option {
+    font-family: $main-font;
+    color: $main-color;
+    font-size: 2vh;
+}
+.select-name {
+    width: 14%;
+    height: 4vh;
+    font-size: 2vh;
+    margin-left: 4%;
+    border: none;
+    border-bottom: 3px solid $main-color;
+    background-color: transparent;
+}
+.input-filter {
+    width: 14%;
+    height: 4vh;
+    font-size: 2vh;
+    margin-left: 4%;
+    border: none;
+    border-bottom: 3px solid $main-color;
+}
+.sort-data {
+    width: 3%;
+    height: 3vh;
+    margin-left: 0%;
+    cursor: 0;
+    border: none;
+    background-image: url(../assets/png-sort.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.container-table-results {
+    width: 95vw;
+    margin-left: 1%;
+    margin-top: 1vh;
+    height:42.5vh;
+    color:black;
+    overflow: auto;   
+}
+.button-sector {
+    border: none;
+}
+.update-button {
+    width: 2vw;
+    height: 2vh;
+    background-image: url('../assets/update.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.image-table {
+    position: absolute;
+    width: 20vw;
+    height: 20vh;
+    background-image: url('../assets/photo_2025-01-23_15-37-31.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    right:0px ;
+    top:20vh;
+}
+th {
+    font-family: $bold-font;
+    font-size: 2vh;
+}
+td {
+    font-family: $main-font;
+    font-size: 2vh;
+    cursor: pointer;
+}
+td:hover {
+    font-family: $main-font;
+    font-size: 2.2vh;
+    cursor: pointer;
+}
+.title-error-not-found {
+    width: 100%;
+    font-size: 5vh;
+    font-family: $bold-font;
+    text-align: center;
+    margin-top: 13vh;
+}
+.sector.notfound {
+    opacity: 0;
+}
+.details-value {
+    position: absolute;
+    top:20vh;
+    left:25vw;
+    width: 50vw;
+    height: 50vh;
+    z-index: 100;
+    background-color: $default-color;
+    border-bottom: 5px solid $main-color;
+    border-top: 5px solid $main-color;
+}
+.container-details-view {
+    width: 50vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.close-button {
+    width: 14%;
+    height: 3vh;
+    border: none;
+    border-bottom: 3px solid $main-color;
+    margin-top: 1vh;
+    text-align: center;
+    font-size: 2vh;
+    cursor: pointer;
+}
+.name-detail-view {
+    width:80%;
+    height: 4vh;
+    margin-top: 2.5vh;
+    font-size: 4vh;
+    font-family:$bold-font;
+    color:$main-color;
+    text-align: left;
+}
+.decsription-detail-view {
+    width:80%;
+    height: 35vh;
+    margin-top: 2.5vh;
+    font-size: 2vh;
+    font-family:$main-font;
+    color:$main-color;
+    text-align: left;
+    overflow: auto;
+}
+.video-loading-delains {
+    width: 90%;
+    height: 13vh;
+    margin-top: 15vh;
+}

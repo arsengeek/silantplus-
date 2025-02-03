@@ -1,0 +1,103 @@
+@use '../variables.scss' as *;
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow:hidden;
+}
+.update-to {
+    flex-grow: 1;
+}
+.contaner-loader {
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title-update {
+    width: 50vw;
+    height: 5vh;
+    color:$main-color;
+    font-size: 4vh;
+    font-family: $bold-font;
+    margin-top: 5vh;
+    margin-left: 4%;
+}
+.container-update {
+    width: 90%;
+    height: 45vh;
+    display: grid;
+    grid-template-columns:repeat(2, auto);
+    grid-template-rows:repeat(6, auto);
+    margin-left: 4%;
+    margin-top: 5vh;
+}
+.update-input {
+    width: 25vw;
+    height: 5vh;
+    border: none;
+    border-bottom: 2px solid $main-color;
+    font-size: 2vh;
+    font-family: $main-font;
+}
+.update-input.error {
+    width: 25vw;
+    height: 5vh;
+    border: none;
+    border-bottom: 2px solid $secondary-color;
+    color:$secondary-color;
+    font-size: 2vh;
+    font-family: $main-font;
+}
+.name-sector {
+    width: 25vw;
+    height: 3vh;
+    border: none;
+    border-bottom: 2px solid $main-color;
+    color:$main-color;
+    font-size: 2vh;
+    font-family: $main-font;
+    margin-top: 2vh;
+}
+.full-update-button {
+    cursor: pointer;
+    width: 25vw;
+    height: 5vh;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid $main-color;
+    color:$main-color;
+    font-size: 2vh;
+    font-family: $main-font;
+    margin-top: 2vh;
+    margin-left: 4%;
+    transition: .2s ease-in;
+}
+.full-update-button:hover {
+    width: 25.5vw;
+    height: 5vh;
+    border-bottom: 2.5px solid $main-color;
+    font-size: 2.2vh;
+}
+.video-loading-update {
+    width: 20%;
+    height: 5vh;
+    justify-content: center;
+    align-items: center;
+}
+.error-faild {
+    opacity: 0;
+    width: 25vw;
+    height: 3vh;
+    color:$secondary-color;
+    font-size: 2vh;
+    font-family: $main-font;
+    margin-top: 2vh;
+    margin-left: 4%;
+    transition: .2s ease-in;
+}
+.error-faild.active {
+    opacity: 1;
+}
+

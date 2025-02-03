@@ -1,0 +1,90 @@
+@use '../variables.scss' as *;
+
+.main-cintainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+.title-main-section {
+    font-size: 4vh;
+    font-family: $bold-font;
+    color:$main-color;
+    margin-left:5%;
+    margin-top: 3%;
+}
+.container-input-numbers {
+    flex-direction: row;   
+}
+.input-factory-number {
+    width: 30%;
+    height: 3vh;
+    margin: 2vh;
+    margin-left:5%;
+    border: none;
+    background-color: transparent; 
+    border-bottom: 2px solid $main-color;
+    color: $main-font;
+    font-size: 2vh;
+    font-family: $main-font;
+    outline: none;
+    transition: .2s ease-in-out;
+}
+.input-factory-number.error {
+    border-bottom: 2px solid $secondary-color;
+    color: $secondary-color;
+}
+.input-factory-number:focus {
+    width: 31%;
+    transition: .2s ease-in-out;
+}
+.button-factory-number {
+    width: 10%;
+    height: 4vh;
+    border: none;
+    border-bottom: 2px solid $main-color;
+    margin-top: 5vh;
+    font-size: 2vh;
+}
+.text-results {
+    font-size: 3vh;
+    font-family: $bold-font;
+    color:$main-color;
+    margin-left:5%;
+    margin-top: 2%;
+}
+.text-machine-silant {
+    font-size: 2vh;
+    font-family: $bold-font;
+    color:$main-color;
+    margin-left:5%;
+    margin-top: 2%;
+}
+.container-results {
+    width: 90%;
+    height: 10vh;
+    display: flex;
+    margin-left:5vw;
+    border-collapse:collapse;
+}
+th, td{
+    color:$main-color;
+    border: 3px solid $main-color; 
+    text-align: center;
+    padding: 10px;
+    font-family: $main-font;
+}
+.error-text {
+    color: $secondary-color;
+    margin-left:5vw;
+    font-size: 2vh;
+    font-family: $main-font;
+}
+.video-loading-home {
+    width: 30%;
+    height: 7vh;
+    margin-top: 3vw;
+    margin-left: 35vw;
+}

@@ -1,0 +1,140 @@
+@use '../variables' as *;
+
+@media only screen and (max-width:360px) {
+    .component-login-section {
+        width: 100vw;
+        height: 70vh;
+        margin-top: 10vh;
+        display: flex;
+        justify-content:unset;
+        align-items: center;
+        flex-direction: column; 
+        flex-grow: 1;
+        overflow-y: auto; 
+    }
+
+    .image-logo {
+        width: 50vw;
+        height: 10vh;
+        background-image: url('../assets/Logotype-RGB.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    .login-section {
+        width: 90vw;
+        height: 50vh;
+        background-color: transparent;
+        border-radius: 20px;
+        padding: 20px;  
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    
+    .login-section-title {
+        width: 100%;
+        text-align: center;
+        font-size:3vh;
+        color: $main-color;
+        font-family: $main-font;
+        margin-bottom: 1%; 
+        margin-top: 5vh
+    }
+    
+    .login-form {
+        width: 100%;
+        height: 50vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+    
+    .login-form-input {
+        width: 100%;
+        height: 25vh;
+        margin: 2vh;
+        border: none;
+        background-color: transparent; 
+        border-bottom: 2px solid $main-color;
+        color: $main-color;
+        font-size: 3vh;
+        font-family: $main-font;
+        outline: none;
+        transition: .2s ease-in-out;
+    }
+    .login-form-input.invalid {
+        width: 80%;
+        width: 100%;
+        height: 25vh;
+        margin: 2vh;
+        border: none;
+        background-color: transparent; 
+        border-bottom: 2px solid $secondary-color;
+        color: $secondary-color;
+        font-size: 3vh;
+        font-family: $main-font;
+        outline: none;
+        transition: .2s ease-in-out;
+    }
+    
+    
+    .login-form-input:focus {
+        border-bottom: 3px solid $main-color;
+        width: 82%;
+        transition: .2s ease-in-out;
+    }
+    .login-form-input:focus.invalid {
+        border-bottom: 3px solid $secondary-color;
+        width: 82%;
+        transition: .2s ease-in-out;
+    }
+    
+    .login-form-button {
+        width: 100%;
+        height: 30vh;
+        color:$main-color;
+        border:none;
+        background-color: transparent;
+        border-bottom:2px solid $main-color;
+        margin-top: 10vh;
+        font-size: 4vh;
+        font-family: $main-font;
+        transition: .2s ease-in;
+    }
+    
+    .login-form-button.action {
+        border-bottom: 3px solid $default-color;
+        margin-top: 10vh;
+        font-size: 4vh;
+        width: 120%;
+        transition: .2s ease-in;
+    }
+    
+    .video-loading {
+        width: 115%;
+        height: 8vh;
+        margin-top: 17vh;
+    }
+    .video-login-error {
+        width: 20%;
+        height: 5vh;
+        margin-top: 15.5vw;
+        margin-left: 40%
+    }
+    .error-text-login {
+        width: 0%;
+        font-size:0vh;
+        font-family: $main-font;
+        color:$secondary-color;
+        text-align: center;
+    }
+    .error-text-login.active {
+        width: 100%;
+        font-size:2.5vh;
+        font-family: $main-font;
+        color:$secondary-color;
+        text-align: center;
+    }
+
+}

@@ -1,0 +1,13 @@
+@use '../variables' as *;
+
+@media only screen and (max-width:360px) { 
+    .container-update-machine {
+        width: 90%;
+        height: 135vh;
+        display: grid;
+        grid-template-columns:repeat(2, auto);
+        grid-template-rows:repeat(2, auto);
+        margin-left: 4%;
+        margin-top: 5vh;
+    }
+}

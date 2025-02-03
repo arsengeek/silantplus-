@@ -1,0 +1,29 @@
+@use '../variables.scss' as *;
+
+.footer-container {
+    width: 100%;
+    background-color: $main-color;
+    height: 10vh;
+    margin-top: 2vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.telegram-icon-footer {
+    width: 10%;
+    height: 50%;
+    margin-right:0vw ;
+    margin-top: 2.3vh;
+    text-align: right;
+    background-image: url('../assets/5968804.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.number-phone-footer {
+    margin-top: 4vh;
+    margin-left: 3vw;
+    font-family: $main-font;
+    font-size:2vh;
+    text-align: center;
+}
