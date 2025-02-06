@@ -23,9 +23,12 @@
 
 # Клиентская часть
 
-![Главная desktop](image.png) [Главная Mobile](image-1.png)
+## Гланая
+![Главная desktop](image.png), [Главная Mobile](image-1.png)
+![Детальная информации](image-4.png)
 
-
+## Редактирование
 ![Редактирование Рекламации desktop](image-2.png)
 
+## Автоизация
 ![Авторизация Mobile](image-3.png)
