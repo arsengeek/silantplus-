@@ -23,8 +23,8 @@
 
 # Клиентская часть
 
-![Главная desktop](image.png)
-![Главная Mobile](image-1.png)
+![Главная desktop](image.png) [Главная Mobile](image-1.png)
+
 
 ![Редактирование Рекламации desktop](image-2.png)
 
