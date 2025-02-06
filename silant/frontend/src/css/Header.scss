@@ -17,11 +17,10 @@
     background-repeat: no-repeat;
 }
 .text-header {
-    width: 100%;
+    width: 100vw;
     font-size:2.5vh;
     line-height: 1.5; 
     font-family: $main-font;
-
 }
 .number-phone {
     width:100%;
@@ -70,4 +69,21 @@
     font-family: $main-font;
     text-align: left;
     cursor: pointer;
+}
+
+@media only screen and (max-width:944px) {
+    .number-phone {
+        width:50%;
+        font-size: 0vh;
+    }
+    .telegram-icon {
+        width: 0%;
+        height: 0%;
+    }
+    .text-header {
+        width: 110vw;
+        font-size:3vw;
+        line-height: 1.5; 
+        font-family: $main-font;
+    }
 }

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './css/HomeNoneAuth.scss'
 import './css/HomeNoneAuthMobile.scss'
 import Header from "./Header.jsx" 
@@ -13,6 +13,10 @@ export default function HomeNoneAuth() {
     const [err, setError] = useState()
     const [loading, setLoading] = useState(false)
 
+    useEffect(() => {
+        document.title = "Поиск информации";
+      }, []);
+
     const handleChangesInputNumber = (e) => {
         setInputNumber(e.target.value)
         setError()
@@ -22,7 +26,7 @@ export default function HomeNoneAuth() {
         setLoading(true)
         setMachineData()
         try {
-            const response = await axios.post('http://127.0.0.1:8001/api/machine/', {
+            const response = await axios.post('http://127.0.0.1:8000/api/machine/', {
                 "factory_number": InputNumber
             },)
             setMachineData(response.data)

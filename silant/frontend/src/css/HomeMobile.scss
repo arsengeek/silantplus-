@@ -90,6 +90,7 @@
         flex-direction: column;
         align-items: center;
         height: 40vh;
+        margin-left: 0;
     }
     .button-information {
         width: 90%;
@@ -266,19 +267,23 @@
         flex-direction: column;
     }
     .close-button {
-        width: 54%;
-        height: 6vh;
+        width: 14%;
+        height: 8vh;
         border: none;
-        border-bottom: 3px solid $main-color;
-        margin-top: 6vh;
-        text-align: center;
+        margin-top: 0vh;
+        margin-left: 85vw;
+        text-align: right;
         font-size: 3vh;
+        background-image: url('../assets/exit.png');
+        background-size: contain;
+        background-repeat: no-repeat;
         cursor: pointer;
+        
     }
     .name-detail-view {
         width:80%;
         height: 4vh;
-        margin-top: 2.5vh;
+        margin-top: 0vh;
         font-size: 4vh;
         font-family:$bold-font;
         color:$main-color;
@@ -298,6 +303,16 @@
         width: 90%;
         height: 13vh;
         margin-top: 15vh;
+    }
+    .sorted-button {
+        width: 10vw;
+        height: 5vh;
+        margin-left: 1vw;
+        cursor: pointer;
+        border: none;
+        background-image: url('../assets/sorted.png');
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 
 }

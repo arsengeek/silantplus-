@@ -84,10 +84,11 @@
 }
 
 .container-buttons {
+    display: flex;
     flex-direction: row;
 }
 .button-information {
-    width: 12%;
+    width: 12vw;
     height: 4vh;
     border: none;
     color: $main-color;
@@ -98,7 +99,7 @@
     transition: .2s ease-in;
 }
 .button-information.active {
-    width: 14%;
+    width: 15vw;
     height: 4vh;
     border: none;
     border-bottom: 3px solid $main-color;
@@ -108,7 +109,7 @@
     transition: .2s ease-in;
 }
 .button-information-to{
-    width: 12%;
+    width: 12vw;
     height: 4vh;
     border: none;
     color: $main-color;
@@ -119,7 +120,7 @@
     transition: .2s ease-in;
 }
 .button-information-to.active {
-    width: 14%;
+    width: 14vw;
     height: 4vh;
     border: none;
     border-bottom: 3px solid $main-color;
@@ -129,7 +130,7 @@
     transition: .2s ease-in;
 }
 .button-information-rec{
-    width: 12%;
+    width: 12vw;
     height: 4vh;
     border: none;
     color: $main-color;
@@ -140,7 +141,7 @@
     transition: .2s ease-in;
 }
 .button-information-rec.active {
-    width: 14%;
+    width: 14vw;
     height: 4vh;
     border: none;
     border-bottom: 3px solid $main-color;
@@ -150,11 +151,12 @@
     transition: .2s ease-in;
 }
 .select {
-    width: 14%;
+    width: 15vw;
     height: 4vh;
     font-size: 2vh;
     font-family: $main-font;
     margin-left: 4%;
+    margin-top: 3vw;
     border: none;
     color: $main-color;
     border-bottom: 3px solid $main-color;
@@ -175,10 +177,11 @@
     background-color: transparent;
 }
 .input-filter {
-    width: 14%;
+    width: 16vw;
     height: 4vh;
     font-size: 2vh;
     margin-left: 4%;
+    margin-top: 3vw;
     border: none;
     border-bottom: 3px solid $main-color;
 }
@@ -202,6 +205,7 @@
 }
 .button-sector {
     border: none;
+    width: 4vw;
 }
 .update-button {
     width: 2vw;
@@ -229,11 +233,7 @@ td {
     font-size: 2vh;
     cursor: pointer;
 }
-td:hover {
-    font-family: $main-font;
-    font-size: 2.2vh;
-    cursor: pointer;
-}
+
 .title-error-not-found {
     width: 100%;
     font-size: 5vh;
@@ -264,18 +264,21 @@ td:hover {
 }
 .close-button {
     width: 14%;
-    height: 3vh;
+    height: 6vh;
     border: none;
-    border-bottom: 3px solid $main-color;
     margin-top: 1vh;
+    margin-left: 50vw;
     text-align: center;
     font-size: 2vh;
+    background-image: url('../assets/exit.png');
+    background-size: contain;
+    background-repeat: no-repeat;
     cursor: pointer;
 }
 .name-detail-view {
     width:80%;
     height: 4vh;
-    margin-top: 2.5vh;
+    margin-top: 0vh;
     font-size: 4vh;
     font-family:$bold-font;
     color:$main-color;
@@ -283,7 +286,7 @@ td:hover {
 }
 .decsription-detail-view {
     width:80%;
-    height: 35vh;
+    height: 30vh;
     margin-top: 2.5vh;
     font-size: 2vh;
     font-family:$main-font;
@@ -295,4 +298,238 @@ td:hover {
     width: 90%;
     height: 13vh;
     margin-top: 15vh;
+}
+.sorted-button {
+    width: 3vw;
+    height: 2vh;
+    margin-left: 1vw;
+    cursor: pointer;
+    border: none;
+    background-image: url('../assets/sorted.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+@media only screen and (max-width:1200px) {
+    .image-table {
+        width: 0vw;
+        height: 0vw;
+    }
+    .button-information {
+        font-size:1.5vw
+    }
+    .button-information.active {
+        font-size:1.5vw
+    }
+    .select {
+        width: 17vw;
+        height: 4vh;
+        font-size: 1.5vw;
+        font-family: $main-font;
+        margin-left: 4%;
+        margin-top: 3vw;
+        border: none;
+        color: $main-color;
+        border-bottom: 3px solid $main-color;
+        background-color: transparent;
+    }
+    .input-filter {
+        width: 17vw;
+        height: 4vh;
+        font-size: 1.4vw;
+        margin-left: 4%;
+        margin-top: 3vw;
+        border: none;
+        border-bottom: 3px solid #163E6C;
+    }
+}
+
+@media only screen and (max-width:944px) {
+    .container-buttons {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: repeat(3, 1fr);
+        margin-left: 6vw;
+    }
+    .button-information {
+        width: 90%;
+        height: 5vh;
+        border: none;
+        color: $main-color;
+        border-bottom: 2px solid $main-color;
+        margin-top: 7vh;
+        font-size: 2vw;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .button-information.active {
+        width: 90%;
+        height: 5vh;
+        border: none;
+        border-bottom: 3px solid $main-color;
+        margin-top: 7vh;
+        font-size: 2vw;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .button-information-to{
+        width: 90%;
+        height: 5vh;
+        border: none;
+        border-bottom: 3px solid $main-color;
+        margin-top: 7vh;
+        font-size: 2vw;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .button-information-to.active {
+        width: 90%;
+        height: 5vh;
+        border: none;
+        border-bottom: 3px solid $main-color;
+        margin-top: 7vh;
+        font-size: 2vw;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .button-information-rec{
+        width: 90%;
+        height: 5vh;
+        border: none;
+        border-bottom: 3px solid $main-color;
+        margin-top: 7vh;
+        font-size: 2vw;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .button-information-rec.active {
+        width: 90%;
+        height: 5vh;
+        border: none;
+        border-bottom: 3px solid $main-color;
+        margin-top: 7vh;
+        font-size: 2vw;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .select {
+        width: 27vw;
+        height: 4vh;
+        font-size: 1.5vw;
+        font-family: $main-font;
+        margin-left: 4%;
+        margin-top: 3vw;
+        border: none;
+        color: $main-color;
+        border-bottom: 3px solid $main-color;
+        background-color: transparent;
+    }
+    .input-filter {
+        width: 27vw;
+        height: 4vh;
+        font-size: 1.5vw;
+        margin-left: 4%;
+        margin-top: 3vw;
+        border: none;
+        border-bottom: 3px solid #163E6C;
+    }
+}
+
+@media only screen and (max-width:620px) {
+    .container-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 40vh;
+    }
+    .button-information {
+        width: 90%;
+        height: 20vh;
+        border: none;
+        color: $main-color;
+        border-bottom: 2px solid $main-color;
+        margin-top: 3vh;
+        font-size: 5vh;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .button-information.active {
+        width: 90%;
+        height: 20vh;
+        border: none;
+        border-bottom: 3px solid $main-color;
+        margin-top: 3vh;
+        font-size: 4vh;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .button-information-to{
+        width: 90%;
+        height: 20vh;
+        border: none;
+        border-bottom: 3px solid $main-color;
+        margin-top: 7vh;
+        font-size: 4vh;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .button-information-to.active {
+        width: 90%;
+        height: 20vh;
+        border: none;
+        border-bottom: 3px solid $main-color;
+        margin-top: 7vh;
+        font-size: 4vh;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .button-information-rec{
+        width: 90%;
+        height: 20vh;
+        border: none;
+        border-bottom: 3px solid $main-color;
+        margin-top: 7vh;
+        font-size: 4vh;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .button-information-rec.active {
+        width: 90%;
+        height: 20vh;
+        border: none;
+        border-bottom: 3px solid $main-color;
+        margin-top: 7vh;
+        font-size: 4vh;
+        margin-left: 0%;
+        transition: .2s ease-in;
+    }
+    .input-filter {
+        width: 90%;
+        height: 6vh;
+        font-size: 1.5vw;
+        margin-top: 5vh;
+        margin-left: 0%;
+        border: none;
+        border-bottom: 3px solid $main-color;
+    }
+    .select {
+        width:90%;
+        height: 10vh;
+        font-size: 1.5vw;
+        font-family: $main-font;
+        margin-left: 0%;
+        margin-top: 2.5vh;
+        border: none;
+        color: $main-color;
+        border-bottom: 3px solid $main-color;
+        background-color: transparent;
+    }
+    .container-table-results {
+        width: 95vw;
+        margin-left: 1%;
+        margin-top: 10vh;
+        height: 42.5vh;
+        color: black;
+        overflow: auto;
+    }
 }

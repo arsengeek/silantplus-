@@ -9,6 +9,11 @@
     margin-left: 4%;
     margin-top: 5vh;
 }
+.text-conainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5vh;
+}
 .note {
     color: $main-color;
     font-size:2vh;
@@ -31,4 +36,20 @@
     font-family: $main-font;
     font-size: 2vh;
     color:$main-color
+}
+.error-eteration {
+    margin-left: 4vw;
+    color: $secondary-color;
+    opacity: 0;
+}
+.error-eteration.active {
+    margin-left: 4vw;
+    color: $secondary-color;
+    opacity: 1;
+}
+
+@media only screen and (max-width:900px) and (min-width:360px) {
+    .container-update-machine {
+        height: 110vh;
+    }   
 }

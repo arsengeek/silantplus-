@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -14,6 +14,8 @@ export default function Update() {
     const { idSec } = useMachine()
     const role = localStorage.getItem('role')
     const token = localStorage.getItem('Token')
+    const [eteration, setEteration] = useState(0)
+    const [errEteration, setErrorEteration] = useState(false)
     const [err, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const [validErr, setValidErr] = useState()
@@ -26,6 +28,10 @@ export default function Update() {
     const [serviceCompany, setServiceCompany] = useState(dataTO.serviceCompany)
     const [organizationDoTO, setOrganizationDoTO] = useState(dataTO.organizationDoTO)
     console.log(idSec)
+
+    useEffect(() => {
+        document.title = "Редактирование";
+      }, []);
 
     const handleUseButton = (id) => {
         if (id == idSec){
@@ -83,31 +89,42 @@ export default function Update() {
         }  
         setOrganizationDoTO(e.target.value)
     }
+    const handleChangeEteration = (e) => {
+        var eter = e + 1
+        setEteration(eter)
+        console.log(eter)
+    }
 
-    const UpdateRequest = async (id) => { 
-        try {
-            setLoading(true)
-            const data = {
-                "TypeTO": typeTo,
-                "dateTO": dateTo,
-                "development": devTo,
-                "orderNumber": orderNum,
-                "dataOrder": dataOrder,
-                "organizationDoTO": organizationDoTO,
-                "machine": machine,
-                "serviceCompany": serviceCompany
-            };
-            await axios.put(`http://127.0.0.1:8001/api/to/update/${id}/`, data, {
-                headers: {
-                     Authorization: `Bearer ${token}`
-                }
-            });
-            setLoading(false)
-            navigate('/home')
+    const UpdateRequest = async (id) => {
+        if (eteration < 3){ 
+            try {
+                setLoading(true)
+                const data = {
+                    "TypeTO": typeTo,
+                    "dateTO": dateTo,
+                    "development": devTo,
+                    "orderNumber": orderNum,
+                    "dataOrder": dataOrder,
+                    "organizationDoTO": organizationDoTO,
+                    "machine": machine,
+                    "serviceCompany": serviceCompany
+                };
+                await axios.put(`http://127.0.0.1:8000/api/to/update/${id}/`, data, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                setLoading(false)
+                navigate('/home')
+            }
+            catch (err){
+                setError(true)
+                setLoading(false)
+                handleChangeEteration(eteration)
+            }
         }
-        catch (err){
-            setError(true)
-            setLoading(false)
+        else if (eteration === 3){
+            setErrorEteration(true)
         }
     }
 
@@ -119,8 +136,10 @@ export default function Update() {
         {idSec ? (
         !loading ? ( 
             <>
-            <h3 className="title-update">Редактирование информации ТО</h3>
-            <p className="note">*вписаное значение должно совпадать с существующим значением</p>
+            <div className="text-conainer">
+                <h3 className="title-update">Редактирование информации ТО</h3>
+                <p className="note">*вписаное значение должно совпадать с существующим значением</p>
+            </div>
             <div className="container-update">
                 <input 
                     className={`update-input ${validErr && !typeTo ? 'error' : ''}`}
@@ -188,6 +207,7 @@ export default function Update() {
                 <h3 className="name-sector">Сервисная компания: {dataTO.serviceCompany}</h3>
             </div>
             <h3 className={`error-faild ${err ? 'active': ''}`}>Введите корректные данные</h3>
+            <h3 className={`error-eteration ${errEteration ? 'active' : ''}`}>Вы превысили количество попыток редактирования, повторите позже</h3>
 
             <button className="full-update-button" onClick={() => handleUseButton(dataTO.id)}>Сохранить изменения</button>
             </>

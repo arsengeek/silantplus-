@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/home/arsen/Рабочий стол/Silant/backend/venv/bin/python3" "$0" "$@"
+'''exec' "/home/arsen/Рабочий стол/silantplus-/silant/backend/venv/bin/python3" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re

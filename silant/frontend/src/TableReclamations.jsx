@@ -10,6 +10,7 @@ export default function TableTo() {
     const storedData = localStorage.getItem('DataRec')
     const errRec = localStorage.getItem('errRec')
     const role = localStorage.getItem('Role')
+    const [method, setMethod] = useState('')
     const [dataRec, setDataRec] = useState([])
     const { filterNameItemLocal } = useMachine();
     const { filterItemLocal } = useMachine();
@@ -37,11 +38,13 @@ export default function TableTo() {
         setHoveredValue(null);
     }
 
-    const sortDataByDate = (data, dateField) => {
+    const sortDataByDate = (data, dateField, method) => {
         return data.sort((data1, data2) => {
           const dateA = new Date(data1[dateField]);
           const dateB = new Date(data2[dateField]);
-          return dateB - dateA; 
+
+          return method === "decreasing" ? dateB - dateA : dateA - dateB;
+          
         });
       };
 
@@ -64,7 +67,7 @@ export default function TableTo() {
         try {
             if (key === 'rejectNode' || key === 'recoveryMethod') {
                 setLoading(true)
-                const response = await axios.get('http://127.0.0.1:8001/api/reject/', {
+                const response = await axios.get('http://127.0.0.1:8000/api/reject/', {
                     params: { name: data },
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -94,7 +97,9 @@ export default function TableTo() {
                 <thead>
                     <tr>
                         {(role === 'serviceCompany' || role === 'manager') && (
-                            <th className="button-sector"></th>
+                            <th className="button-sector">
+                                 <div className='sorted-button' onClick={() => setMethod(method === "ascending" ? "decreasing" : "ascending")} title='Cортировка по дате'></div>
+                            </th>
                          )}
                         <th>Дата отказа</th>
                         <th>Наработка, м/час</th>
@@ -141,12 +146,12 @@ export default function TableTo() {
             {hoveredValue && dataRecDetail && (
                 <div className="details-value">
                    <div className="container-details-view">
+                   <div className="close-button" onClick={handleCloseClick} title='Закрыть'></div>
                         {!loading ? (
                             <>
                                 <p className="name-detail-view">Модель: {dataRecDetail.name || "Имя не найдено"}</p>
                                 <p className="decsription-detail-view">Описание: {dataRecDetail.description || "Описание не найдено"}</p>
                                 {console.log(dataRecDetail)}
-                                <div className="close-button" onClick={handleCloseClick}>Закрыть</div>
                             </>
                         ):(<img src={loader} className="video-loading-delains" autoPlay muted loop />)}
                     </div>

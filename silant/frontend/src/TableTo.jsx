@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function TableTo({scrollToTarget}) {
     const storedData = localStorage.getItem('DataTo')
     const errTo = localStorage.getItem('errTo')
+    const [method, setMethod] = useState('')
     const [dataTo, setDataTo] = useState([])
     const [dataValue, setDataValue] = useState()
     const [dataToDetail, setDataToDetail] = useState()
@@ -21,17 +22,17 @@ export default function TableTo({scrollToTarget}) {
     const { setDataTO } = useMachine()
     const { setId } = useMachine()
     const navigate = useNavigate()
-    console.log(errTo)
 
 
 
     const handleClick = (key, value) => {
         if (key === 'TypeTO') {
-            console.log(key)
+            console.log(value)
             setDataValue(value);
             InfoRequestDec(key, value)
         }
         else if (key === 'serviceCompany') {
+            console.log(value)
             setDataValue(value);
             InfoRequestDecSecviceCompany(key, value)
         }    
@@ -47,20 +48,22 @@ export default function TableTo({scrollToTarget}) {
         navigate(`/update/${id}`)
     }
 
-    const sortDataByDate = (data, dateField) => {
+    const sortDataByDate = (data, dateField, method) => {
         return data.sort((data1, data2) => {
           const dateA = new Date(data1[dateField]);
           const dateB = new Date(data2[dateField]);
-          return dateB - dateA; 
+
+          return method === "decreasing" ? dateB - dateA : dateA - dateB;
+          
         });
       };
 
     useEffect(() => {
-        if (storedData && machine) {
+        if (storedData) {
             try {
                 const parsedData = JSON.parse(storedData);
                 const arrayParsedData = Array.isArray(parsedData) ? parsedData : [parsedData];
-                const sortedData = sortDataByDate(arrayParsedData, 'dateTO');
+                const sortedData = sortDataByDate(arrayParsedData, 'dateTO', method);
                 setDataTo(sortedData)
                 console.log('table', sortedData)
             } catch (error) {
@@ -68,7 +71,7 @@ export default function TableTo({scrollToTarget}) {
                 setDataTo([]);
             }
         }
-    }, [storedData, machine]);
+    }, [storedData, method]);
 
     useEffect(() => {
         if (dataTo.length > 0) {
@@ -80,7 +83,7 @@ export default function TableTo({scrollToTarget}) {
     const InfoRequestDec = async (key, data) => {
         try {
             setLoading(true)
-            const response = await axios.get('http://127.0.0.1:8001/api/TypeTo/', {
+            const response = await axios.get('http://127.0.0.1:8000/api/typeTo/', {
                 params: { name: data },
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -105,7 +108,7 @@ export default function TableTo({scrollToTarget}) {
      const InfoRequestDecSecviceCompany = async (key, data) => {
         try {
             setLoading(true)
-            const response = await axios.get('http://127.0.0.1:8001/api/servicecompany/', {
+            const response = await axios.get('http://127.0.0.1:8000/api/servicecompany/', {
                 params: { name: data },
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -131,7 +134,9 @@ export default function TableTo({scrollToTarget}) {
         <table>
                 <thead>
                     <tr>
-                        <th className="button-sector"></th>
+                        <th className="button-sector">
+                        <div className='sorted-button' onClick={() => setMethod(method === "ascending" ? "decreasing" : "ascending")} title='Cортировка по дате'></div>
+                        </th>
                         <th>Вид ТО</th>
                         <th>Дата проведения ТО</th>
                         <th>Наработка, м/час</th>
@@ -142,7 +147,8 @@ export default function TableTo({scrollToTarget}) {
                         <th>Сервисная компания</th>
                     </tr>
                 </thead>  
-                <tbody>        
+                <tbody>      
+                {console.log(machine)}  
                 {dataTo && dataTo.length > 0 ? (
                         dataTo
                         .filter((item) => item.machine === machine) 
@@ -151,12 +157,13 @@ export default function TableTo({scrollToTarget}) {
                             <>  
                             <tr key={index}>
                                 <td className='button-sector'>
-                                    <div className='update-button' onClick={() => handleNavigateUpdateTO(value.id, value)}></div>
+                                    <div className='update-button' onClick={() => handleNavigateUpdateTO(value.id, value)} title='Рекдактировать'></div>
                                 </td>
                                 {Object.entries(value).map(([key, data], idx) => (
                                     <td key={idx}
                                         className={`sector ${key === 'id' ? 'notfound' : ''}`}
                                         onClick={() => handleClick(key, data)}
+                                        title={data}
                                     >
                                         {data === null || key === 'id' ? "" : data}
                                     </td>
@@ -178,12 +185,12 @@ export default function TableTo({scrollToTarget}) {
             {dataValue && dataToDetail && (
                 <div className="details-value">
                     <div className="container-details-view">
+                    <div className="close-button" onClick={handleCloseClick} title='Закрыть'></div>
                         {!loading ? (
                             <>
                                 <p className="name-detail-view">Модель: {dataToDetail.name || "Имя не найдено"}</p>
                                 <p className="decsription-detail-view">Описание: {dataToDetail.description || "Описание не найдено"}</p>
                                 {console.log(dataToDetail)}
-                                <div className="close-button" onClick={handleCloseClick}>Закрыть</div>
                             </>
                         ):(<img src={loader} className="video-loading-delains" autoPlay muted loop />)}
                     </div>

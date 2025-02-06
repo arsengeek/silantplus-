@@ -16,12 +16,10 @@
     align-items: center;
 }
 .title-update {
-    width: 50vw;
-    height: 5vh;
     color:$main-color;
     font-size: 4vh;
     font-family: $bold-font;
-    margin-top: 5vh;
+    margin-top: 0vh;
     margin-left: 4%;
 }
 .container-update {
@@ -51,7 +49,7 @@
     font-family: $main-font;
 }
 .name-sector {
-    width: 25vw;
+    width: 35vw;
     height: 3vh;
     border: none;
     border-bottom: 2px solid $main-color;
@@ -101,3 +99,15 @@
     opacity: 1;
 }
 
+@media only screen and (max-width:900px) and (min-width:360px) {
+    .name-sector {
+        width: 35vw;
+        height: 5vh;
+        border: none;
+        border-bottom: 2px solid $main-color;
+        color:$main-color;
+        font-size: 2.5vw;
+        font-family: $main-font;
+        margin-top: 2vh;
+    }    
+}

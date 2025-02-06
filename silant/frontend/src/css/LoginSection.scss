@@ -111,8 +111,8 @@
 }
 
 .video-loading {
-    width: 100%;
-    height: 5vh;
+    width: 15vw;
+    height: 2.5vw;
     margin-top: 9vh;
 }
 .video-login-error {
@@ -124,5 +124,12 @@
 .text-error {
     color: $secondary-color;
     font-family: $main-font;
-    font-size: 1.5vh;
+    font-size: 1.7vh;
+    opacity: 0;
+}
+.text-error.invalid {
+    color: $secondary-color;
+    font-family: $main-font;
+    font-size: 1.7vh;
+    opacity: 1;
 }

@@ -21,6 +21,10 @@ export default function LoginSection() {
     const { setTokenLocal } = useMachine() 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        document.title = "Авторизация";
+      }, []);    
+
     const handleChangesInputLogin = (e) => {
         setInputLogin(e.target.value)
         setError()
@@ -44,7 +48,7 @@ export default function LoginSection() {
     const tokenRequest = async () => {
         try {
             setLoading(true)
-            const response = await axios.post('http://127.0.0.1:8001/api/token/', {
+            const response = await axios.post('http://127.0.0.1:8000/api/token/', {
             "username": InputLogin,
             "password": InputPassword
             })
@@ -99,7 +103,7 @@ export default function LoginSection() {
                                 value={InputPassword}
                                 onChange={handleChangesInputPassword}>
                             </input>
-                            <h3 className={`text-error ${err ? 'invalid' : ''}`}>Не верный логин или пароль</h3>
+                            <h3 className={`text-error ${err ? 'invalid' : ''}`}>Неверный логин или пароль</h3>
                             <button 
                                 className={`login-form-button ${changeButtonEnter ? 'action' : ''}`}
                                 disabled={disable()} 

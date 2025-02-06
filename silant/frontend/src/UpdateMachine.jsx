@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -14,6 +14,8 @@ export default function Update() {
     const { dataMachine } = useMachine()
     const role = localStorage.getItem('Role')
     const token = localStorage.getItem('Token')
+    const [eteration, setEteration] = useState(0)
+    const [errEteration, setErrorEteration] = useState(false)
     const [err, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const [validErr, setValidErr] = useState()
@@ -30,9 +32,14 @@ export default function Update() {
     const [factoryNumberSupplyContract, setFactoryNumberSupplyContract] = useState(dataMachine.factoryNumberSupplyContract)
     const [dataShipment, setDataShipment] = useState(dataMachine.dataShipment)
     const [consumer, setConsumer] = useState(dataMachine.consumer)
+    const [adressExplotation, setAdressExplotation] = useState(dataMachine.adressExplotation)
     const [complictation, setComplictation] = useState(dataMachine.complictation)
     const [client, setClient] = useState(dataMachine.client)
     const [serviceCompany, setServiceCompany] = useState(dataMachine.serviceCompany)
+
+    useEffect(() => {
+        document.title = "Редактирование";
+      }, []);
 
     const handleUseButton = (id) => {
         if (factoryNumber &&
@@ -127,6 +134,12 @@ export default function Update() {
         }  
         setConsumer(e.target.value)
     }
+    const handelChangeStateAdressExplotation = (e) => {
+        if (!adressExplotation){
+            setError(true)
+        }  
+        setAdressExplotation(e.target.value)
+    }
     const handelChangeStateComplictation = (e) => {
         if (!complictation){
             setError(true)
@@ -151,40 +164,53 @@ export default function Update() {
         }  
         setServiceCompany(e.target.value)
     }
+    const handleChangeEteration = (e) => {
+        var eter = e + 1
+        setEteration(eter)
+        console.log(eter)
+    }
 
     const UpdateRequest = async (id) => { 
-        try {
-            setLoading(true)
-            const data = {
-                "factoryNumber": factoryNumber,
-                "model": model,
-                "modelEngine": modelEngine,
-                "factoryNumberEngine": factoryNumberEngine,
-                "modelTransmission": modelTransmission,
-                "factoryNumberTransmission": factoryNumberTransmission,
-                "modelLeadingBridge": modelLeadingBridge,
-                "modelManagedBridge": modelManagedBridge,
-                "factoryNumberManagedBridge": factoryNumberManagedBridge,
-                "factoryNumberSupplyContract": factoryNumberSupplyContract,
-                "dataShipment": dataShipment,
-                "consumer": consumer,
-                "complictation": complictation,
-                "client": client,
-                "serviceCompany": serviceCompany,
-            };
-            await axios.put(`http://127.0.0.1:8001/api/machine/update/${id}/`, data, {
-                headers: {
-                     Authorization: `Bearer ${token}`
-                }
-            });
-            setLoading(false)
-            navigate('/home')
+        if (eteration < 3){
+            try {
+                setLoading(true)
+                const data = {
+                    "factoryNumber": factoryNumber,
+                    "model": model,
+                    "modelEngine": modelEngine,
+                    "factoryNumberEngine": factoryNumberEngine,
+                    "modelTransmission": modelTransmission,
+                    "factoryNumberTransmission": factoryNumberTransmission,
+                    "modelLeadingBridge": modelLeadingBridge,
+                    "factoryNumberLeadingBridge": factoryNumberLeadingBridge,
+                    "modelManagedBridge": modelManagedBridge,
+                    "factoryNumberManagedBridge": factoryNumberManagedBridge,
+                    "factoryNumberSupplyContract": factoryNumberSupplyContract,
+                    "dataShipment": dataShipment,
+                    "consumer": consumer,
+                    "adressExplotation": adressExplotation,
+                    "complictation": complictation,
+                    "client": client,
+                    "serviceCompany": serviceCompany,
+                };
+                await axios.put(`http://127.0.0.1:8000/api/update/machine/${id}/`, data, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                setLoading(false)
+                navigate('/home')
+            }
+            catch (err){
+                console.log(err.response.data) 
+                console.log(err.message)
+                setError(true)
+                setLoading(false)
+                handleChangeEteration(eteration)
+            }
         }
-        catch (err){
-            console.log(err.response.data) 
-            console.log(err.message)
-            setError(true)
-            setLoading(false)
+        else if (eteration === 3){
+            setErrorEteration(true)
         }
     }
 
@@ -196,8 +222,10 @@ export default function Update() {
         {role === 'manager' ? (
         !loading ? ( 
             <>
-            <h3 className="title-update">Редактирование информации Машины</h3>
-            <p className="note">*вписаное значение должно совпадать с существующим значением</p>
+            <div className="text-conainer">
+                <h3 className="title-update">Редактирование информации Машины</h3>
+                <p className="note">*вписаное значение должно совпадать с существующим значением</p>
+            </div>
             <div className="container-update-machine">
                 <input 
                     className={`update-input ${validErr && !factoryNumber ? 'error' : ''}`}
@@ -207,6 +235,7 @@ export default function Update() {
                     onChange={handelChangeStateTypeFactoryNumber}>
                 </input>
                 <h3 className="name-sector">Заводской номер: {dataMachine.factoryNumber}</h3>
+
                 <input 
                     className={`update-input ${validErr && !model ? 'error' : ''}`}
                     placeholder='Модель машины' 
@@ -215,6 +244,7 @@ export default function Update() {
                     onChange={handelChangeStateDateModel}>
                 </input>
                 <h3 className="name-sector">Модель машины: {dataMachine.model}</h3>
+
                 <input 
                     className={`update-input ${validErr && !modelEngine ? 'error' : ''}`}
                     placeholder='Модель двигателя' 
@@ -223,6 +253,7 @@ export default function Update() {
                     onChange={handelChangeStateModelEngine}>
                 </input>
                 <h3 className="name-sector">Модель двигателя: {dataMachine.modelEngine}</h3>
+
                 <input 
                     className={`update-input ${validErr && !factoryNumberEngine ? 'error' : ''}`}
                     placeholder='Номер двигателя' 
@@ -231,6 +262,7 @@ export default function Update() {
                     onChange={handelChangeStateFactoryNumberEngine}>
                 </input>
                 <h3 className="name-sector">Номер двигателя: {dataMachine.factoryNumberEngine}</h3>
+
                 <input 
                     className={`update-input ${validErr && !modelTransmission ? 'error' : ''}`}
                     placeholder='Модель трансмисии' 
@@ -239,6 +271,7 @@ export default function Update() {
                     onChange={handelChangeStateModelTransmissionr}>
                 </input>
                 <h3 className="name-sector">Модель трансмисии: {dataMachine.modelTransmission}</h3>
+
                 <input 
                     className={`update-input ${validErr && !factoryNumberTransmission ? 'error' : ''}`}
                     placeholder='Номер трансмисии' 
@@ -247,6 +280,7 @@ export default function Update() {
                     onChange={handelChangeStateFactoryNumberTransmission}>
                 </input>
                 <h3 className="name-sector">Номер трансмисии: {dataMachine.factoryNumberTransmission}</h3>
+
                 <input 
                     className={`update-input ${validErr && !modelManagedBridge ? 'error' : ''}`}
                     placeholder='Модель управляемого поста' 
@@ -255,6 +289,7 @@ export default function Update() {
                     onChange={handelChangeStateModelManagedBridge}>
                 </input>
                 <h3 className="name-sector">Модель управляемого моста: {dataMachine.modelManagedBridge}</h3>
+
                 <input 
                     className={`update-input ${validErr && !factoryNumberManagedBridge ? 'error' : ''}`}
                     placeholder='Номер управляемого моста' 
@@ -263,6 +298,7 @@ export default function Update() {
                     onChange={handelChangeStateFactoryNumberManagedBridge}>
                 </input>
                 <h3 className="name-sector">Номер управляемого поста: {dataMachine.factoryNumberManagedBridge}</h3>
+
                 <input 
                     className={`update-input ${validErr && !modelLeadingBridge ? 'error' : ''}`}
                     placeholder='Модель ведушего моста' 
@@ -271,6 +307,7 @@ export default function Update() {
                     onChange={handelChangeStateModelLeadingBridge}>
                 </input>
                 <h3 className="name-sector">Модель ведушего моста: {dataMachine.modelLeadingBridge}</h3>
+
                 <input 
                     className={`update-input ${validErr && !factoryNumberLeadingBridge ? 'error' : ''}`}
                     placeholder='Номер ведушего моста' 
@@ -279,14 +316,16 @@ export default function Update() {
                     onChange={handelChangeStateFactoryNumberLeadingBridge}>
                 </input>
                 <h3 className="name-sector">Номер ведушего моста: {dataMachine.factoryNumberLeadingBridge}</h3>
+
                 <input 
                     className={`update-input ${validErr && !factoryNumberSupplyContract ? 'error' : ''}`}
                     placeholder='Дата отгрузки с завода' 
-                    type='text' 
+                    type='date' 
                     value={dataShipment} 
                     onChange={handelChangeStateDataShipment}>
                 </input>
                 <h3 className="name-sector">Дата отгрузки с завода {dataMachine.dataShipment}</h3>
+
                 <input 
                     className={`update-input ${validErr && !factoryNumberSupplyContract ? 'error' : ''}`}
                     placeholder='Номер контракта' 
@@ -295,6 +334,7 @@ export default function Update() {
                     onChange={handelChangeStateFactoryNumberSupplyContract}>
                 </input>
                 <h3 className="name-sector">Номер контракта: {dataMachine.factoryNumberSupplyContract}</h3>
+
                 <input 
                     className={`update-input ${validErr && !consumer ? 'error' : ''}`}
                     placeholder='Консумер' 
@@ -302,7 +342,17 @@ export default function Update() {
                     value={consumer} 
                     onChange={handelChangeStateConsumer}>
                 </input>
-                <h3 className="name-sector">Консумер: {dataMachine.consumer}</h3>
+                <h3 className="name-sector">Консумер: {dataMachine.adressExplotation}</h3>
+
+                <input 
+                    className={`update-input ${validErr && !consumer ? 'error' : ''}`}
+                    placeholder='Адресс поставки' 
+                    type='text' 
+                    value={adressExplotation} 
+                    onChange={handelChangeStateAdressExplotation}>
+                </input>
+                <h3 className="name-sector">Адресс поставки: {dataMachine.adressExplotation}</h3>
+                
                 <input 
                     className={`update-input ${validErr && !complictation ? 'error' : ''}`}
                     placeholder='Комплектация' 
@@ -311,6 +361,7 @@ export default function Update() {
                     onChange={handelChangeStateComplictation}>
                 </input>
                 <h3 className="name-sector">Комплектация: {dataMachine.complictation}</h3>
+
                 <input 
                     className={`update-input ${validErr && !client ? 'error' : ''}`}
                     placeholder='Клиент' 
@@ -319,6 +370,7 @@ export default function Update() {
                     onChange={handelChangeStateClient}>
                 </input>
                 <h3 className="name-sector">Клиент {dataMachine.client}</h3>
+
                 <input 
                     className={`update-input ${validErr && !serviceCompany ? 'error' : ''}`}
                     placeholder='Сервисная компания' 
@@ -330,6 +382,7 @@ export default function Update() {
 
             </div>
             <h3 className={`error-faild ${err ? 'active': ''}`}>Введите корректные данные</h3>
+            <h3 className={`error-eteration ${errEteration ? 'active' : ''}`}>Вы превысили количество попыток редактирования, повторите позже</h3>
 
             <button className="full-update-button" onClick={() => handleUseButton(dataMachine.id)}>Редактировать</button>
             </>

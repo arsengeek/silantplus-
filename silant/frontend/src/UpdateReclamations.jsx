@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useMachine } from "./context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -17,7 +17,8 @@ export default function UpdateReclamations() {
     const [validErr, setValidErr] = useState()
     const role = localStorage.getItem('role')
     const token = localStorage.getItem('Token')
-
+    const [eteration, setEteration] = useState(0)
+    const [errEteration, setErrorEteration] = useState(false)
     const [dateReclamation, setDateReclamation] = useState(dataReclamation.dateReclamation)
     const [development, setDevelopment] = useState(dataReclamation.development)
     const [rejectNode, setRejectNode] = useState(dataReclamation.rejectNode)
@@ -29,6 +30,10 @@ export default function UpdateReclamations() {
     const [machine, setMachine] = useState(dataReclamation.machine)
     const [serviceCompany, setServiceCompany] = useState(dataReclamation.serviceCompany) 
     
+    useEffect(() => {
+        document.title = "Редактирование";
+      }, []);
+
     const handleUseButton = (id) => {
         if (id == idSec){
             if (dateReclamation && development && rejectNode && descriotionReject && recoveryMethod && machine && serviceCompany && useSpareParts && dataRecovery && downtimeEquipment){
@@ -97,32 +102,44 @@ export default function UpdateReclamations() {
         }  
         setServiceCompany(e.target.value)
     }
+    const handleChangeEteration = (e) => {
+        var eter = e + 1
+        setEteration(eter)
+        console.log(eter)
+    }
+
     const UpdateRequest = async (id) => { 
-        try {
-            setLoading(true)
-            const data = {
-                "dateReclamation": dateReclamation,
-                "development": development,
-                "rejectNode": rejectNode,
-                "descriotionReject": descriotionReject,
-                "recoveryMethod": recoveryMethod,
-                "useSpareParts": useSpareParts,
-                "dataRecovery": dataRecovery,
-                "downtimeEquipment": downtimeEquipment,
-                "machine": machine,
-                "serviceCompany": serviceCompany
-            };
-            await axios.put(`http://127.0.0.1:8001/api/reclamation/update/${id}/`, data, {
-                headers: {
-                     Authorization: `Bearer ${token}`
-                }
-            });
-            setLoading(false)
-            navigate('/home')
+        if (eteration < 3){ 
+            try {
+                setLoading(true)
+                const data = {
+                    "dateReclamation": dateReclamation,
+                    "development": development,
+                    "rejectNode": rejectNode,
+                    "descriotionReject": descriotionReject,
+                    "recoveryMethod": recoveryMethod,
+                    "useSpareParts": useSpareParts,
+                    "dataRecovery": dataRecovery,
+                    "downtimeEquipment": downtimeEquipment,
+                    "machine": machine,
+                    "serviceCompany": serviceCompany
+                };
+                await axios.put(`http://127.0.0.1:8000/api/reclamation/update/${id}/`, data, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                setLoading(false)
+                navigate('/home')
+            }
+            catch (err){
+                setError(true)
+                setLoading(false)
+                handleChangeEteration(eteration)
+            }
         }
-        catch (err){
-            setError(true)
-            setLoading(false)
+        else if (eteration === 3){
+            setErrorEteration(true)
         }
     }
 
@@ -134,8 +151,10 @@ export default function UpdateReclamations() {
               {idSec ? (
               !loading ? ( 
                   <>
-                  <h3 className="title-update">Редактирование информации ТО</h3>
-                  <p className="note">*вписаное значение должно совпадать с существующим значением</p>
+                  <div className="text-conainer">
+                        <h3 className="title-update">Редактирование информации ТО</h3>
+                        <p className="note">*вписаное значение должно совпадать с существующим значением</p>
+                  </div>
                   <div className="container-update-rec">
                       <input 
                           className={`update-input ${validErr && !dataReclamation ? 'error' : ''}`}
@@ -219,6 +238,7 @@ export default function UpdateReclamations() {
                       <h3 className="name-sector">Сервисная компания: {dataReclamation.serviceCompany}</h3>
                   </div>
                   <h3 className={`error-faild ${err ? 'active': ''}`}>Введите корректные данные</h3>
+                  <h3 className={`error-eteration ${errEteration ? 'active' : ''}`}>Вы превысили количество попыток редактирования, повторите позже</h3>
       
                   <button className="full-update-button" onClick={() => handleUseButton(dataReclamation.id)}>Сохранить изменения</button>
                   </>

@@ -40,12 +40,17 @@ export default function Home() {
     const [eterationToApi, setEterationToApi] = useState(false)
     const [eterationRecApi, setEterationRecApi] = useState(false)
     const [hoveredValue, setHoveredValue] = useState(null);
+    const [method, setMethod] = useState('')
     const { setMachine } = useMachine();
     const { setFilterNameItemLocal } = useMachine();
     const { setFilterItemLocal } = useMachine()
     const { setDataMachine } = useMachine()
 
     const targetRef = useRef(null);
+
+    useEffect(() => {
+        document.title = "Главная";
+      }, []);
     
     const scrollToTarget = () => {
         targetRef.current.scrollIntoView({ behavior: 'smooth' })
@@ -105,13 +110,13 @@ export default function Home() {
         setError()
     }
 
-
-
-    const sortDataByDate = (data, dateField) => {
+    const sortDataByDate = (data, dateField, method) => {
         return data.sort((data1, data2) => {
           const dateA = new Date(data1[dateField]);
           const dateB = new Date(data2[dateField]);
-          return dateB - dateA; 
+
+          return method === "decreasing" ? dateB - dateA : dateA - dateB;
+          
         });
       };
 
@@ -121,7 +126,7 @@ export default function Home() {
             try {
                 if (!eterationMachineApi) {
                 setLoading(true)
-                const response = await axios.get('http://127.0.0.1:8001/api/machine/full/',{
+                const response = await axios.get('http://127.0.0.1:8000/api/machine/full/',{
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -155,7 +160,7 @@ export default function Home() {
             try {
                 if (!eterationToApi) {
                     setLoading(true)
-                    const response = await axios.get('http://127.0.0.1:8001/api/to/', {
+                    const response = await axios.get('http://127.0.0.1:8000/api/to/', {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
@@ -190,7 +195,7 @@ export default function Home() {
             try {
                 if (!eterationRecApi) {
                     setLoading(true)
-                    const response = await axios.get('http://127.0.0.1:8001/api/reclamation/', {
+                    const response = await axios.get('http://127.0.0.1:8000/api/reclamation/', {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
@@ -230,7 +235,24 @@ export default function Home() {
                 key === 'modelManagedBridge'
             ) {
                 setLoading(true)
-                const response = await axios.get('http://127.0.0.1:8001/api/checkmodel/', {
+                const response = await axios.get('http://127.0.0.1:8000/api/checkmodel/', {
+                    params: { name: value },
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }) 
+                console.log(response.data)
+                if (response.data) {
+                    setDataModel(response.data)
+                    setLoading(false)
+                } else {
+                    setError('No valid data received');
+                    setLoading(false)
+                }
+            }
+            else if (key === 'serviceCompany') {
+                setLoading(true)
+                const response = await axios.get('http://127.0.0.1:8000/api/servicecompany/', {
                     params: { name: value },
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -283,17 +305,21 @@ export default function Home() {
                 <div className={`container-cars ${buttonFuncToText ? 'active' : ''}`}>
                     {buttonFuncToText &&
                         infoMachines && infoMachines.length > 0 ? ( 
-                            <select className="select" ref={targetRef}>
-                            <option className="car-name"></option>
-                            {infoMachines.map((machine, index) => (
-                                machine.model ? (       
-                                    <option                                 
-                                    key={index}
-                                    className="car-name"
-                                    onClick={() => setMachine(machine.model)} 
-                                >{machine.model}</option>
-                            ):(<></>)
-                            ))}</select>
+                            <select
+                            className="select"
+                            ref={targetRef}
+                            onChange={(e) => setMachine(e.target.value)} 
+                            >
+                            <option className="car-name">Выбрать машину</option>
+                            {infoMachines.map((machine, index) =>
+                                machine.model ? (
+                                <option key={index} className="car-name" value={machine.model}>
+                                    {machine.model}
+                                </option>
+                                ) : null
+                            )}
+                            </select>
+
                         ):(<></>)
                     }
                 </div>
@@ -368,7 +394,9 @@ export default function Home() {
                             <thead>
                                 <tr>
                                     {role == 'manager' && (
-                                        <th className="button-sector"></th>
+                                        <th className="button-sector">
+                                            <div className='sorted-button' onClick={() => setMethod(method === "ascending" ? "decreasing" : "ascending")} title='Cортировка по дате'></div>
+                                        </th>
                                     )}
                                     <th>Зав. № машины</th>
                                     <th>Модель техники</th>
@@ -425,11 +453,11 @@ export default function Home() {
                         {hoveredValue && dataModel && (
                             <div className="details-value">
                                 <div className="container-details-view">
+                                <div className="close-button" onClick={handleCloseClick} title='Закрыть'></div>
                                 {!loading ? (
                                     <>
                                         <p className="name-detail-view">Модель: {dataModel.name || "Имя не найдено"}</p>
                                         <p className="decsription-detail-view">Описание: {dataModel.description || "Описание не найдено"}</p>
-                                        <div className="close-button" onClick={handleCloseClick}>Закрыть</div>
                                     </>
                                 ):(<img src={loader} className="video-loading-delains" autoPlay muted loop />)}
                                 </div>
