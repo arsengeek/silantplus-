@@ -24,12 +24,12 @@
 # Клиентская часть
 
 ## Гланая
-![Главная desktop](image.png) 
-![Детальная информации](image-4.png)
-![Главная Mobile](image-1.png)
+![Главная desktop](readme-images/image.png) 
+![Детальная информации](readme-images/image-4.png)
+![Главная Mobile](readme-images/image-1.png)
 
 ## Редактирование
-![Редактирование Рекламации desktop](image-2.png)
+![Редактирование Рекламации desktop](readme-images/image-2.png)
 
 ## Автоизация
-![Авторизация Mobile](image-3.png) 
+![Авторизация Mobile](readme-images/image-3.png) 
